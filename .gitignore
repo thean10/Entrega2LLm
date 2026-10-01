@@ -1,0 +1,6 @@
+# BMAD personal user configuration
+*.user.toml
+
+# Operating System files
+Thumbs.db
+.DS_Store
