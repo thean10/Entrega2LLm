@@ -52,8 +52,8 @@
       "detalle_alerta_fraude": null
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T20:39:48.407688+00:00",
-      "limite_timestamp": "2026-10-04T20:39:48.407688+00:00",
+      "inicio_timestamp": "2026-10-03T20:45:12.899749+00:00",
+      "limite_timestamp": "2026-10-04T20:45:12.899749+00:00",
       "duracion_horas": 24,
       "horas_restantes": 21.0,
       "tiempo_restante_minutos": 1260,
@@ -71,12 +71,12 @@
       "decision_algoritmica": "APROBADO_AUTOMATICO",
       "causal_derivacion": null,
       "detalle_causal": "Expediente con alta confianza (95.7 >= 90.0). Aprobación directa autorizada.",
-      "timestamp_evaluacion": "2026-10-03T20:39:48.407688+00:00",
+      "timestamp_evaluacion": "2026-10-03T20:45:12.899749+00:00",
       "version_motor": "v1.0.0-f4"
     },
     "resolucion_humana_f1": null,
     "hash_auditoria_sha256": "8f3b25916c02934ad27fe9a12b6e1590498305c48b259586118d09ca084931a1",
-    "fecha_creacion": "2026-10-03T20:39:48.407688+00:00"
+    "fecha_creacion": "2026-10-03T20:45:12.899749+00:00"
   },
   {
     "caso_id": "CASO-2026-002",
@@ -131,8 +131,8 @@
       "detalle_alerta_fraude": null
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T18:49:48.407688+00:00",
-      "limite_timestamp": "2026-10-04T18:49:48.407688+00:00",
+      "inicio_timestamp": "2026-10-03T18:55:12.899749+00:00",
+      "limite_timestamp": "2026-10-04T18:55:12.899749+00:00",
       "duracion_horas": 24,
       "horas_restantes": 19.2,
       "tiempo_restante_minutos": 1150,
@@ -150,12 +150,12 @@
       "decision_algoritmica": "DERIVADO_A_REVISION_ASISTIDA",
       "causal_derivacion": "ZONA_GRIS",
       "detalle_causal": "Puntaje de confianza en zona gris (77.4 entre 60.0 y 90.0). Requiere inspección asistida humana.",
-      "timestamp_evaluacion": "2026-10-03T18:49:48.407688+00:00",
+      "timestamp_evaluacion": "2026-10-03T18:55:12.899749+00:00",
       "version_motor": "v1.0.0-f4"
     },
     "resolucion_humana_f1": null,
     "hash_auditoria_sha256": "4b6a12c8e19034af72e90c889a2b5e190348705c48b259586118d09ca084931b2",
-    "fecha_creacion": "2026-10-03T18:49:48.407688+00:00"
+    "fecha_creacion": "2026-10-03T18:55:12.899749+00:00"
   },
   {
     "caso_id": "CASO-2026-003",
@@ -223,8 +223,8 @@
       "detalle_alerta_fraude": null
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T13:54:48.407688+00:00",
-      "limite_timestamp": "2026-10-04T13:54:48.407688+00:00",
+      "inicio_timestamp": "2026-10-03T14:00:12.899749+00:00",
+      "limite_timestamp": "2026-10-04T14:00:12.899749+00:00",
       "duracion_horas": 24,
       "horas_restantes": 14.2,
       "tiempo_restante_minutos": 855,
@@ -242,12 +242,12 @@
       "decision_algoritmica": "DERIVADO_A_REVISION_ASISTIDA",
       "causal_derivacion": "BAJO_PUNTAJE",
       "detalle_causal": "Puntaje crítico (48.3 < 60.0). Conforme al mandato DEC-07 y RF-14, el sistema tiene prohibición de emitir rechazos automáticos. Requiere dictamen humano soberano.",
-      "timestamp_evaluacion": "2026-10-03T13:54:48.407688+00:00",
+      "timestamp_evaluacion": "2026-10-03T14:00:12.899749+00:00",
       "version_motor": "v1.0.0-f4"
     },
     "resolucion_humana_f1": null,
     "hash_auditoria_sha256": "9a12c8e19034af72e90c889a2b5e190348705c48b259586118d09ca084931c3",
-    "fecha_creacion": "2026-10-03T13:54:48.407688+00:00"
+    "fecha_creacion": "2026-10-03T14:00:12.899749+00:00"
   },
   {
     "caso_id": "CASO-2026-004",
@@ -315,8 +315,8 @@
       "detalle_alerta_fraude": null
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T20:39:48.407688+00:00",
-      "limite_timestamp": "2026-10-04T20:39:48.407688+00:00",
+      "inicio_timestamp": "2026-10-03T20:45:12.899749+00:00",
+      "limite_timestamp": "2026-10-04T20:45:12.899749+00:00",
       "duracion_horas": 24,
       "horas_restantes": 21.0,
       "tiempo_restante_minutos": 1260,
@@ -334,12 +334,12 @@
       "decision_algoritmica": "DERIVADO_A_REVISION_ASISTIDA",
       "causal_derivacion": "MINIMO_SENAL_INSATISFECHO",
       "detalle_causal": "La señal crítica 'habilitacion_prestador' tiene un valor de 52.0, inferior al umbral mínimo exigido de 65.0 (RF-11 / H-12).",
-      "timestamp_evaluacion": "2026-10-03T20:39:48.407688+00:00",
+      "timestamp_evaluacion": "2026-10-03T20:45:12.899749+00:00",
       "version_motor": "v1.0.0-f4"
     },
     "resolucion_humana_f1": null,
     "hash_auditoria_sha256": "1a22c8e19034af72e90c889a2b5e190348705c48b259586118d09ca084931d4",
-    "fecha_creacion": "2026-10-03T20:39:48.407688+00:00"
+    "fecha_creacion": "2026-10-03T20:45:12.899749+00:00"
   },
   {
     "caso_id": "CASO-2026-005",
@@ -407,8 +407,8 @@
       "detalle_alerta_fraude": "Alteración tipográfica deliberada detectada en el folio N° 45892 (Doble impresión sobrepuesta)."
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T18:19:48.407688+00:00",
-      "limite_timestamp": "2026-10-04T18:19:48.407688+00:00",
+      "inicio_timestamp": "2026-10-03T18:25:12.899749+00:00",
+      "limite_timestamp": "2026-10-04T18:25:12.899749+00:00",
       "duracion_horas": 24,
       "horas_restantes": 18.6,
       "tiempo_restante_minutos": 1120,
@@ -426,12 +426,12 @@
       "decision_algoritmica": "DERIVADO_A_REVISION_ASISTIDA",
       "causal_derivacion": "ALERTA_CRITICA_FRAUDE",
       "detalle_causal": "Alerta de fraude activa: Alteración tipográfica deliberada detectada en el folio N° 45892 (Doble impresión sobrepuesta). Precedencia de corte absoluto sobre cualquier puntaje (RF-12 / H-03).",
-      "timestamp_evaluacion": "2026-10-03T18:19:48.407688+00:00",
+      "timestamp_evaluacion": "2026-10-03T18:25:12.899749+00:00",
       "version_motor": "v1.0.0-f4"
     },
     "resolucion_humana_f1": null,
     "hash_auditoria_sha256": "5c33c8e19034af72e90c889a2b5e190348705c48b259586118d09ca084931e5",
-    "fecha_creacion": "2026-10-03T18:19:48.407688+00:00"
+    "fecha_creacion": "2026-10-03T18:25:12.899749+00:00"
   },
   {
     "caso_id": "CASO-2026-006",
@@ -486,8 +486,8 @@
       "detalle_alerta_fraude": null
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T22:09:48.407688+00:00",
-      "limite_timestamp": "2026-10-04T22:09:48.407688+00:00",
+      "inicio_timestamp": "2026-10-03T22:15:12.899749+00:00",
+      "limite_timestamp": "2026-10-04T22:15:12.899749+00:00",
       "duracion_horas": 24,
       "horas_restantes": 22.5,
       "tiempo_restante_minutos": 1350,
@@ -500,12 +500,12 @@
       "decision_algoritmica": "DERIVADO_A_REVISION_ASISTIDA",
       "causal_derivacion": "INFORMACION_INCOMPLETA",
       "detalle_causal": "Fallo de disponibilidad analítica o información incompleta en módulo(s): consistencia_datos. Derivado a revisión asistida sin imputar valores ficticios (RF-13).",
-      "timestamp_evaluacion": "2026-10-03T22:09:48.407688+00:00",
+      "timestamp_evaluacion": "2026-10-03T22:15:12.899749+00:00",
       "version_motor": "v1.0.0-f4"
     },
     "resolucion_humana_f1": null,
     "hash_auditoria_sha256": "6d44c8e19034af72e90c889a2b5e190348705c48b259586118d09ca084931f6",
-    "fecha_creacion": "2026-10-03T22:09:48.407688+00:00"
+    "fecha_creacion": "2026-10-03T22:15:12.899749+00:00"
   },
   {
     "caso_id": "CASO-2026-007",
@@ -560,14 +560,14 @@
       "detalle_alerta_fraude": null
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T11:39:48.407688Z",
-      "limite_timestamp": "2026-10-04T11:39:48.407688Z",
+      "inicio_timestamp": "2026-10-03T11:45:12.899749+00:00",
+      "limite_timestamp": "2026-10-04T11:45:12.899749+00:00",
       "duracion_horas": 24,
       "horas_restantes": 12.0,
-      "tiempo_restante_minutos": 718,
-      "estado_sla": "verde"
+      "tiempo_restante_minutos": 720,
+      "estado_sla": "amarillo"
     },
-    "estado_caso": "RESUELTO_POR_OPERADOR",
+    "estado_caso": "DERIVADO_A_REVISION_ASISTIDA",
     "resultado_f4": {
       "puntaje_calculado": 54.7,
       "desglose_componentes": {
@@ -579,19 +579,12 @@
       "decision_algoritmica": "DERIVADO_A_REVISION_ASISTIDA",
       "causal_derivacion": "BAJO_PUNTAJE",
       "detalle_causal": "Puntaje crítico (54.7 < 60.0). Conforme al mandato DEC-07 y RF-14, requiere dictamen humano soberano.",
-      "timestamp_evaluacion": "2026-10-03T11:39:48.407688Z",
+      "timestamp_evaluacion": "2026-10-03T11:45:12.899749+00:00",
       "version_motor": "v1.0.0-f4"
     },
-    "resolucion_humana_f1": {
-      "decision_operador": "APROBAR",
-      "motivo_justificacion": "Se autoriza cobertura excepcional por tratarse de una urgencia oftalmológica impostergable.",
-      "operador_id": "operador_marco",
-      "operador_nombre": "Marco Peñailillo",
-      "discrepancia_detectada": true,
-      "timestamp_resolucion": "2026-10-03T23:41:10.313534Z"
-    },
-    "hash_auditoria_sha256": "bcf979c8d6e4d08862688ea4a26c3914b5b653c49b4d9ffad227d1f83bd55dd5",
-    "fecha_creacion": "2026-10-03T11:39:48.407688Z"
+    "resolucion_humana_f1": null,
+    "hash_auditoria_sha256": "7e55c8e19034af72e90c889a2b5e190348705c48b259586118d09ca084931a7",
+    "fecha_creacion": "2026-10-03T11:45:12.899749+00:00"
   },
   {
     "caso_id": "CASO-2026-008",
@@ -646,8 +639,8 @@
       "detalle_alerta_fraude": null
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T00:04:48.407688+00:00",
-      "limite_timestamp": "2026-10-04T00:04:48.407688+00:00",
+      "inicio_timestamp": "2026-10-03T00:10:12.899749+00:00",
+      "limite_timestamp": "2026-10-04T00:10:12.899749+00:00",
       "duracion_horas": 24,
       "horas_restantes": 0.4,
       "tiempo_restante_minutos": 25,
@@ -665,11 +658,11 @@
       "decision_algoritmica": "DERIVADO_A_REVISION_ASISTIDA",
       "causal_derivacion": "ZONA_GRIS",
       "detalle_causal": "Puntaje en zona gris (73.2). Vencimiento inminente de plazo legal de 24 horas (SLA Rojo < 1h).",
-      "timestamp_evaluacion": "2026-10-03T00:04:48.407688+00:00",
+      "timestamp_evaluacion": "2026-10-03T00:10:12.899749+00:00",
       "version_motor": "v1.0.0-f4"
     },
     "resolucion_humana_f1": null,
     "hash_auditoria_sha256": "8f66c8e19034af72e90c889a2b5e190348705c48b259586118d09ca084931b8",
-    "fecha_creacion": "2026-10-03T00:04:48.407688+00:00"
+    "fecha_creacion": "2026-10-03T00:10:12.899749+00:00"
   }
 ]
