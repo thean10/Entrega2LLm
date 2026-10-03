@@ -32,5 +32,22 @@
     },
     "hash_sha256": "28de61dbbb9e1a0308699751f151a5c743802f4597be4515c6da5cea6c745282",
     "hash_previo": "bcf979c8d6e4d08862688ea4a26c3914b5b653c49b4d9ffad227d1f83bd55dd5"
+  },
+  {
+    "evento_id": "AUD-000003",
+    "caso_id": "CASO-2026-007",
+    "tenant_id": "org_aseguradora_piloto",
+    "tipo_evento": "DICTAMEN_HUMANO_F1",
+    "timestamp_utc": "2026-10-03T23:48:21.180270+00:00",
+    "snapshot_datos": {
+      "voto": "APROBAR",
+      "motivo": "Se autoriza cobertura excepcional por tratarse de una urgencia oftalmológica impostergable.",
+      "operador_id": "operador_marco",
+      "discrepancia_detectada": true,
+      "puntaje_original_f4": 54.7,
+      "causal_original_f4": "BAJO_PUNTAJE"
+    },
+    "hash_sha256": "0aecd7a7a645045c2a7803f19bcff942522c1d08fd87440f49f6b653f4a49997",
+    "hash_previo": "28de61dbbb9e1a0308699751f151a5c743802f4597be4515c6da5cea6c745282"
   }
 ]
