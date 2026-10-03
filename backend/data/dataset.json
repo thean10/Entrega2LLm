@@ -560,14 +560,14 @@
       "detalle_alerta_fraude": null
     },
     "sla": {
-      "inicio_timestamp": "2026-10-03T11:39:48.407688+00:00",
-      "limite_timestamp": "2026-10-04T11:39:48.407688+00:00",
+      "inicio_timestamp": "2026-10-03T11:39:48.407688Z",
+      "limite_timestamp": "2026-10-04T11:39:48.407688Z",
       "duracion_horas": 24,
       "horas_restantes": 12.0,
-      "tiempo_restante_minutos": 720,
-      "estado_sla": "amarillo"
+      "tiempo_restante_minutos": 718,
+      "estado_sla": "verde"
     },
-    "estado_caso": "DERIVADO_A_REVISION_ASISTIDA",
+    "estado_caso": "RESUELTO_POR_OPERADOR",
     "resultado_f4": {
       "puntaje_calculado": 54.7,
       "desglose_componentes": {
@@ -579,12 +579,19 @@
       "decision_algoritmica": "DERIVADO_A_REVISION_ASISTIDA",
       "causal_derivacion": "BAJO_PUNTAJE",
       "detalle_causal": "Puntaje crítico (54.7 < 60.0). Conforme al mandato DEC-07 y RF-14, requiere dictamen humano soberano.",
-      "timestamp_evaluacion": "2026-10-03T11:39:48.407688+00:00",
+      "timestamp_evaluacion": "2026-10-03T11:39:48.407688Z",
       "version_motor": "v1.0.0-f4"
     },
-    "resolucion_humana_f1": null,
-    "hash_auditoria_sha256": "7e55c8e19034af72e90c889a2b5e190348705c48b259586118d09ca084931a7",
-    "fecha_creacion": "2026-10-03T11:39:48.407688+00:00"
+    "resolucion_humana_f1": {
+      "decision_operador": "APROBAR",
+      "motivo_justificacion": "Se autoriza cobertura excepcional por tratarse de una urgencia oftalmológica impostergable.",
+      "operador_id": "operador_marco",
+      "operador_nombre": "Marco Peñailillo",
+      "discrepancia_detectada": true,
+      "timestamp_resolucion": "2026-10-03T23:41:10.313534Z"
+    },
+    "hash_auditoria_sha256": "bcf979c8d6e4d08862688ea4a26c3914b5b653c49b4d9ffad227d1f83bd55dd5",
+    "fecha_creacion": "2026-10-03T11:39:48.407688Z"
   },
   {
     "caso_id": "CASO-2026-008",

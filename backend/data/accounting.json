@@ -1,0 +1,14 @@
+{
+  "contadores_tenant": {
+    "org_aseguradora_piloto": {
+      "total_validaciones_cobrables": 1,
+      "automaticas_f4": 0,
+      "asistidas_f1": 1
+    }
+  },
+  "registro_facturacion_interno": {
+    "org_aseguradora_piloto": {
+      "total_cobros_registrados": 1
+    }
+  }
+}
