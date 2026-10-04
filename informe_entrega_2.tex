@@ -2,30 +2,38 @@
 
 % --- PAQUETES DE CONFIGURACIÓN Y TIPOGRAFÍA ---
 \usepackage[utf8]{inputenc}
-\usepackage[spanish,es-tabla]{babel}
-\usepackage[margin=2.5cm]{geometry}
+\usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+\usepackage[margin=2.2cm,top=2.2cm,bottom=2.2cm]{geometry}
 \usepackage{times}
 \usepackage{microtype}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{longtable}
 \usepackage{array}
 \usepackage{xcolor}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage{caption}
-\usepackage{graphicx}
+\usepackage{setspace}
 
-% Configuración de colores sobrios y profesionales
+% Configuración tipográfica y de espaciado
+\setstretch{1.05}
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{0pt}
+\setlist{itemsep=1.5pt,topsep=2pt,partopsep=0pt,parsep=0pt}
+\renewcommand{\arraystretch}{1.12}
+
+% Definición de columnas adaptativas
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% Colores del documento
 \definecolor{dprimeblue}{RGB}{15, 23, 42}
 \definecolor{accentblue}{RGB}{30, 58, 138}
-\definecolor{alertred}{RGB}{185, 28, 28}
-\definecolor{subtleborder}{RGB}{203, 213, 225}
 
-% Hipervínculos
 \hypersetup{
     colorlinks=true,
     linkcolor=accentblue,
@@ -37,56 +45,69 @@
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{\small \textcolor{gray}{MIRA — Entrega 2 (Método BMAD)}}
-\lhead{\small \textcolor{gray}{Informe de Arquitectura, Implementación y Verificación}}
+\lhead{\small \textcolor{gray}{Informe Técnico: SDD, Implementación y Verificación}}
 \cfoot{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
-% Ajuste de espaciado en títulos
-\titleformat{\section}{\Large\bfseries\color{dprimeblue}}{\thesection}{1em}{}
-\titleformat{\subsection}{\large\bfseries\color{accentblue}}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalsize\bfseries\color{dprimeblue}}{\thesubsubsection}{1em}{}
-\setlist{topsep=2pt,itemsep=1pt,partopsep=1pt,parsep=1pt}
-
-% --- METADATOS DEL DOCUMENTO ---
-\title{\vspace{-1.5cm}
-    \textbf{\LARGE Informe Técnico de la Entrega 2: Software Design Document, Implementación y Verificación de los Módulos F4 y F1}\\[0.4em]
-    \large Plataforma de Inteligencia Multimodal para Decisiones Empresariales (MIRA)
-}
-\author{
-    \textbf{Equipo de Desarrollo (DPRIME SpA):}\\
-    Lucas Orellana \quad|\quad Thean Orlandi \quad|\quad Ángel Pino\\[0.3em]
-    \small Rol de Representante del Cliente (Aseguradora Piloto): Thean Orlandi\\
-    \small Roles de Agentes BMAD: Mary (BA), John (PM), Sally (UX), Winston (Architect), PO, SM, Amelia (Dev), QA
-}
-\date{03 de Octubre de 2026}
+% Formato compacto de secciones
+\titleformat{\section}{\large\bfseries\color{dprimeblue}}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accentblue}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\small\bfseries\color{dprimeblue}}{\thesubsubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\subsection}{0pt}{6pt}{3pt}
+\titlespacing*{\subsubsection}{0pt}{4pt}{2pt}
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
+% =============================================================================
+% PORTADA COMPACTA
+% =============================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{0.5cm}
+    {\LARGE\bfseries Informe Técnico de la Entrega 2\par}
+    \vspace{0.3cm}
+    {\large Software Design Document, Implementación y Verificación de los Módulos F4 y F1\par}
+    \vspace{0.6cm}
+    {\Large\bfseries Plataforma de Inteligencia Multimodal para Decisiones Empresariales (MIRA)\par}
+    \vspace{1.0cm}
 
-\vspace{-0.5em}
-\noindent\rule{\textwidth}{1.2pt}
-\vspace{0.5em}
+    \begin{tabularx}{0.88\textwidth}{rY}
+        \textbf{Equipo de Desarrollo:} & DPRIME SpA\\
+        \textbf{Integrantes:} & Lucas Orellana \quad|\quad Thean Orlandi \quad|\quad Ángel Pino\\
+        \textbf{Representante del Cliente:} & Thean Orlandi (Aseguradora Piloto)\\
+        \textbf{Roles de Agentes BMAD:} & Mary (BA), John (PM), Sally (UX), Winston (Architect),\\
+        & PO Gatekeeper, SM, Amelia (Dev), QA Tester\\
+        \textbf{Fecha de Entrega:} & 03 de octubre de 2026
+    \end{tabularx}
+
+    \vfill
+    \noindent\rule{0.88\textwidth}{0.8pt}\\[0.4em]
+    {\small Universidad de los Andes — Taller de Proyectos de Software y Sistemas Inteligentes\par}
+\end{titlepage}
+
+\newpage
 
 % =============================================================================
 % 6.1 RESUMEN EJECUTIVO (Extensión máxima: 1/2 plana)
 % =============================================================================
 \section{Resumen Ejecutivo}
 
-En esta Entrega 2 construimos un incremento funcional compuesto por dos módulos conectados: el motor de cálculo y decisión por umbrales (\textbf{F4}) y la bandeja web de revisión asistida para liquidadores de siniestros (\textbf{F1}). Para trabajar utilizamos el método \textbf{BMAD} (\textit{Bayesian Multi-Agent Development}), organizando el desarrollo en roles especializados de análisis, producto, diseño, arquitectura, programación y aseguramiento de calidad, con revisión y control humano en cada paso.
+En esta Entrega 2 construimos un incremento funcional compuesto por dos módulos conectados: el motor de cálculo y decisión por umbrales (\textbf{F4}) y la bandeja web de revisión asistida para liquidadores de siniestros (\textbf{F1}). Para el desarrollo utilizamos el método \textbf{BMAD} (\textit{Bayesian Multi-Agent Development}) v1.0.0, organizando el trabajo en roles especializados de análisis, producto, diseño, arquitectura, programación y aseguramiento de calidad, con revisión y control humano en cada traspaso.
 
 A partir del análisis técnico y de las reuniones con la aseguradora en la Entrega 1, definimos tres cambios prioritarios:
 \begin{enumerate}
-    \item \textbf{Prohibir el rechazo automático de solicitudes (\texttt{DEC-07} / \texttt{RF-14}):} En el diseño inicial se contemplaba denegar reembolsos de forma automática cuando el puntaje era bajo ($<60$). Eliminamos esa posibilidad del código; si un caso tiene bajo puntaje o alertas, pasa obligatoriamente a un liquidador humano, quien es el único facultado para emitir una resolución desfavorable tras revisar los antecedentes.
+    \item \textbf{Prohibir el rechazo automático de solicitudes (\texttt{DEC-07} / \texttt{RF-14}):} En el diseño inicial se contemplaba denegar reembolsos algorítmicamente cuando el puntaje era bajo ($<60$). Eliminamos esa opción del código: si un caso tiene bajo puntaje o alertas, pasa obligatoriamente a un liquidador humano, quien es el único facultado para rechazar un siniestro tras revisar las pruebas.
     \item \textbf{Ocultar el puntaje al inicio de la revisión (\texttt{DEC-03} / \texttt{RNF-08}):} Para evitar que el evaluador se condicione con una nota numérica antes de mirar los antecedentes, rediseñamos la pantalla en un embudo de tres partes: primero se muestra la boleta médica y las anomalías visuales, y el puntaje algorítmico solo se revela al final de la página.
-    \item \textbf{Exigir notas mínimas por componente individual (\texttt{RF-11} / \texttt{H-12}):} Corregimos el problema de que un promedio general alto pudiera ocultar fallas graves (como un médico no habilitado o un documento sospechoso). Ahora, si cualquiera de las señales críticas no alcanza su umbral mínimo, el caso se frena de inmediato y deriva a revisión.
+    \item \textbf{Exigir notas mínimas por componente individual (\texttt{RF-11} / \texttt{H-12}):} Corregimos el problema de que un promedio general alto pudiera ocultar fallas graves (como un médico no habilitado o un folio adulterado). Ahora, si cualquiera de las señales críticas no alcanza su umbral mínimo, el caso se frena de inmediato y deriva a revisión.
 \end{enumerate}
 
-Recomendamos a la gerencia iniciar una marcha blanca controlada con los 8 casos canónicos del dataset sintético, habilitar la recepción asíncrona para expedientes con archivos pesados (\texttt{DEC-05}) y preparar la integración con el directorio corporativo de usuarios para la siguiente fase (\texttt{DEC-08}).
+Recomendamos a la gerencia iniciar una marcha blanca controlada con los 8 casos canónicos del dataset sintético para calibrar tiempos de atención pericial, habilitar la recepción asíncrona para expedientes con archivos multimedia pesados (\texttt{DEC-05}) y coordinar la integración con el directorio corporativo de usuarios para la siguiente fase (\texttt{DEC-08}).
 
 \vspace{0.8em}
 \noindent\rule{\textwidth}{0.4pt}
+
+\newpage
 
 % =============================================================================
 % 6.2 INTRODUCCIÓN Y SELECCIÓN DE FUNCIONALIDADES (Extensión máxima: 1 plana)
@@ -102,30 +123,32 @@ Para este incremento seleccionamos dos funcionalidades acopladas de manera natur
     \item \textbf{F1 — Bandeja de revisión asistida:} Interfaz web donde recaen los casos no aprobados directamente por F4, diseñada para que el liquidador examine boletas con recuadros sobre anomalías (\textit{bounding boxes}), revise las alertas y emita su dictamen soberano.
 \end{itemize}
 
-Esta elección cumple con las tres reglas del Capítulo 4.2:
-\begin{enumerate}
-    \item \textbf{Regla de Conexión:} Forman un flujo continuo: F4 actúa como primer filtro determinista y, si una solicitud no califica para aprobación directa ($\ge 90$ sin alertas), ingresa automáticamente a la cola de F1 para revisión humana.
-    \item \textbf{Regla de Hallazgo Abierto de E1:} Resuelve de forma definitiva el hallazgo crítico \textbf{H-12} sobre el requisito \texttt{RF-11} (\textit{Mínimos por señal individual}), el cual había quedado abierto en la Entrega 1 con verificación pendiente.
-    \item \textbf{Regla de Riesgo del Negocio:} F4 y F1 concentran el núcleo de mayor riesgo patrimonial y legal para la aseguradora: pagar fraudes genera pérdidas millonarias, mientras que rechazar solicitudes legítimas sin debido proceso acarrea sanciones regulatorias. Probar aquí la interacción entre el algoritmo y el criterio pericial valida la gobernanza del sistema antes de conectar los modelos de visión de fondo, los cuales se desacoplaron mediante un dataset sintético precalculado conforme a la Regla 4.3.
-\end{enumerate}
+Esta selección cumple estrictamente con las tres reglas del Capítulo 4.2:
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{P{3.2cm}Y}
+\toprule
+\textbf{Regla del Cap. 4.2} & \textbf{Cumplimiento y Justificación en el Incremento}\\
+\midrule
+\textbf{1. Conexión Directa} & Forman un ciclo continuo: F4 actúa como primer filtro determinista y, si una solicitud no califica para aprobación directa ($\ge 90$ sin alertas), ingresa automáticamente a la cola de F1 para revisión pericial humana.\\
+\textbf{2. Hallazgo Abierto E1} & Resuelve de forma definitiva el hallazgo crítico \textbf{H-12} sobre el requisito \texttt{RF-11} (\textit{Mínimos por señal individual}), el cual había quedado abierto en la Entrega 1 con verificación pendiente.\\
+\textbf{3. Riesgo del Negocio} & F4 y F1 concentran el núcleo de mayor riesgo patrimonial y legal: pagar fraudes genera pérdidas millonarias, mientras que rechazar solicitudes válidas sin debido proceso acarrea multas regulatorias. Probar aquí la interacción entre el algoritmo y el criterio humano valida la gobernanza del sistema antes de conectar los modelos de visión de fondo, desacoplados mediante un dataset sintético precalculado (Regla 4.3).\\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \subsection{Método, Herramientas, Stack y Gobernanza del Equipo}
 \begin{itemize}
-    \item \textbf{Método y Herramienta:} Metodología \textbf{BMAD} (\textit{Bayesian Multi-Agent Development}) v1.0.0, orquestada en Antigravity IDE con agentes especializados impulsados por modelos Gemini y Claude Sonnet.
-    \item \textbf{Stack Tecnológico:} 
-    \begin{itemize}
-        \item \textit{Backend \& Core F4:} Python 3.12, FastAPI 0.115, validaciones de esquema con Pydantic v2.9 y servidor Uvicorn 0.30.
-        \item \textit{Persistencia:} Repositorio dual desacoplado: adaptador local estructurado JSON (\texttt{LocalJsonRepository}) para garantizar levantamiento autónomo en $<5$ segundos sin claves externas (\textbf{Criterio C4}), y adaptador cloud Google Cloud Firestore (\texttt{FirestoreRepository}) con conmutación transparente por tolerancia a fallos (\texttt{RNF-02}).
-        \item \textit{Frontend F1:} Aplicación de página única (SPA) modular construida con Vite 5.4, HTML5 semántico, JavaScript ECMAScript 2022+ y estilos con Tailwind CSS 3.4.
-        \item \textit{Pruebas:} Pytest 9.1 y Pytest-asyncio para backend; suite E2E en Node.js con JSDOM 29.1 para validar la interfaz web.
-    \end{itemize}
-    \item \textbf{Composición del Equipo:} Lucas Orellana, Thean Orlandi y Ángel Pino. El rol de \textbf{Representante del Cliente (Aseguradora Piloto)} fue asumido por \textbf{Thean Orlandi}, actuando como contraparte técnica y normativa para validar las decisiones de negocio \texttt{DEC-01} a \texttt{DEC-09}.
+    \item \textbf{Método y Herramienta:} Metodología \textbf{BMAD} (\textit{Bayesian Multi-Agent Development}) v1.0.0, orquestada en Antigravity IDE con agentes especializados (Gemini y Claude Sonnet).
+    \item \textbf{Stack Tecnológico:} Backend en Python 3.12, FastAPI 0.115, Pydantic v2.9 y Uvicorn 0.30; persistencia dual mediante repositorio local JSON (\texttt{LocalJsonRepository}) para garantizar levantamiento autónomo en $<5$ s (\textbf{Criterio C4}) y adaptador cloud Firestore (\texttt{FirestoreRepository}) para tolerancia a fallos (\texttt{RNF-02}); frontend SPA con Vite 5.4, JavaScript nativo y Tailwind CSS 3.4; pruebas con Pytest 9.1 y suite E2E en Node.js con JSDOM 29.1.
+    \item \textbf{Composición del Equipo:} Lucas Orellana, Thean Orlandi y Ángel Pino. El rol de \textbf{Representante del Cliente (Aseguradora Piloto)} fue ejercido por \textbf{Thean Orlandi}, actuando como contraparte técnica y normativa para validar las decisiones de negocio \texttt{DEC-01} a \texttt{DEC-09}.
 \end{itemize}
 
 \newpage
 
 % =============================================================================
-% 6.3 APLICACIÓN DEL MÉTODO (Extensión máxima: 2 planas)
+% 6.3 APLICACIÓN DEL MÉTODO BMAD (Extensión máxima: 2 planas)
 % =============================================================================
 \section{Aplicación del Método BMAD}
 
@@ -134,17 +157,17 @@ Aplicamos el método BMAD como un flujo de trabajo iterativo entre ingenieros y 
 \begin{table}[h]
 \centering
 \small
-\begin{tabularx}{\textwidth}{l p{4.2cm} p{4.2cm} X}
+\begin{tabularx}{\textwidth}{l P{3.5cm} P{3.8cm} Y}
 \toprule
-\textbf{Fase BMAD / Rol} & \textbf{Entrada Recibida} & \textbf{Artefacto Generado} & \textbf{Control y Corrección del Equipo Humano} \\
+\textbf{Fase / Rol} & \textbf{Entrada Recibida} & \textbf{Artefacto Generado} & \textbf{Control y Corrección del Equipo Humano} \\
 \midrule
-\textbf{1. Business Analyst}\newline (Mary) & Informe E1, Bitácora \texttt{DEC-01..09}, Hallazgos \texttt{H-01..15}. & Project Brief (\texttt{project-brief.md}). & Exigimos incorporar de forma explícita el mandato de intervención humana de \texttt{DEC-07}. \\
-\textbf{2. Product Manager}\newline (John) & Project Brief, Criterios de Selección 4.2. & PRD Principal y Addendum (\texttt{prd.md}, \texttt{addendum.md}). & Eliminamos la propuesta del agente de rechazar automáticamente casos bajo 20 puntos. \\
-\textbf{3. UX Designer}\newline (Sally) & PRD, Personas de Liquidación, Mandato \texttt{DEC-03}. & Especificación de Interfaz UI (\texttt{especificacion-de-interfaz.md}). & Rechazamos poner el puntaje en la cabecera fija; ordenamos el Embudo de Tres Tercios. \\
-\textbf{4. System Architect}\newline (Winston) & PRD, UX Spec, Catálogo de 10 RNF de E1. & Documento de Arquitectura SDD (\texttt{documento-de-arquitectura.md}). & Obligamos a diseñar un repositorio local JSON para correr el sistema sin internet ni credenciales. \\
-\textbf{5. Product Owner}\newline (PO Gatekeeper) & PRD, UX, Arquitectura, E1 Backlog, Bitácoras. & Validación y Fragmentación (\texttt{validacion-y-fragmentacion.md}). & Resolvimos 7 roces técnicos (\texttt{ROCE-01..07}) y unificamos los nombres de los estados. \\
-\textbf{6. Scrum Master}\newline (SM) & Artefacto PO, Criterios INVEST, 10 RNF. & Sprint Backlog Trozado (\texttt{historias.md} — 22 HUs). & Verificamos la trazabilidad de cada historia hacia el backlog original de la Entrega 1. \\
-\textbf{7. Dev \& QA}\newline (Amelia / QA) & Sprint Backlog, Regla 4.3, Criterios C4/C5. & Código, 8 casos canónicos, 24 Pytests, E2E y QA Report. & Ajustamos el orden del DOM y añadimos el encolamiento elástico para el rate limiting. \\
+\textbf{1. BA} (Mary) & Informe E1, \texttt{DEC-01..09}, \texttt{H-01..15}. & Project Brief (\texttt{project-brief.md}) & Exigimos incorporar de forma explícita el mandato de intervención humana de \texttt{DEC-07}. \\
+\textbf{2. PM} (John) & Project Brief, Criterios 4.2. & PRD y Addendum (\texttt{prd.md}) & Eliminamos la propuesta del agente de rechazar automáticamente casos bajo 20 puntos. \\
+\textbf{3. UX} (Sally) & PRD, Personas de Liquidación. & Especificación UI (\texttt{interfaz.md}) & Rechazamos poner el puntaje en la cabecera fija; ordenamos el Embudo de Tres Tercios. \\
+\textbf{4. Arch.} (Winston) & PRD, UX Spec, 10 RNF de E1. & Documento Arquitectura (\texttt{sdd.md}) & Obligamos a diseñar un repositorio local JSON para correr el sistema sin credenciales cloud. \\
+\textbf{5. PO Gatekeeper} & PRD, UX, Arquitectura, Backlog. & Validación (\texttt{fragmentacion.md}) & Resolvimos 7 roces técnicos (\texttt{ROCE-01..07}) y unificamos los nombres de los estados. \\
+\textbf{6. SM} & Artefacto PO, Criterios INVEST. & Sprint Backlog (\texttt{historias.md}) & Verificamos la trazabilidad de cada historia hacia el backlog original de la Entrega 1. \\
+\textbf{7. Dev \& QA} & Backlog, Regla 4.3, Criterios C4/C5. & Código, 8 casos, 24 Pytests, E2E & Ajustamos el orden del DOM y añadimos el encolamiento elástico para el rate limiting. \\
 \bottomrule
 \end{tabularx}
 \caption{Fases del método BMAD, artefactos producidos y puntos de intervención del equipo.}
@@ -155,7 +178,7 @@ Aplicamos el método BMAD como un flujo de trabajo iterativo entre ingenieros y 
 Tradujimos los acuerdos de la bitácora de la Entrega 1 en requisitos formales del sistema:
 \begin{enumerate}
     \item \textbf{Traducción de \texttt{DEC-07} (Prohibición de Rechazo Automático):}  
-    En la Entrega 1 se permitía denegar solicitudes si el puntaje era inferior a 60. El Representante del Cliente (Thean Orlandi) recalcó que la normativa aseguradora prohíbe decisiones patrimoniales adversas sin revisión humana. Esta directriz se tradujo en el Brief y PRD como el requisito funcional \textbf{\texttt{FR-F4-02}}: \textit{``Todo expediente con puntaje $<60$ o causales críticas deriva a revisión asistida bajo la causal \texttt{BAJO\_PUNTAJE}. El motor F4 carece de transiciones de salida a \texttt{RECHAZADO}''}.
+    En la Entrega 1 se permitía denegar solicitudes si el puntaje era inferior a 60. El Representante del Cliente (Thean Orlandi) recalcó que la normativa aseguradora prohíbe decisiones patrimoniales desfavorables sin revisión humana. Esta directriz se tradujo en el Brief y PRD como el requisito funcional \textbf{\texttt{FR-F4-02}}: \textit{``Todo expediente con puntaje $<60$ o causales críticas deriva a revisión asistida bajo la causal \texttt{BAJO\_PUNTAJE}. El motor F4 carece de transiciones de salida a \texttt{RECHAZADO}''}.
     \item \textbf{Traducción de \texttt{DEC-03} (Mitigación del Sesgo de Anclaje):}  
     En las entrevistas de E1, los peritos señalaron que ver una nota referencial al abrir un caso condiciona su análisis. Tradujimos esta observación a la arquitectura y al diseño visual como la regla del \textbf{Embudo de Tres Tercios}: el puntaje numérico se ubica físicamente al final del recorrido visual, después de la boleta y de las señales explicables.
 \end{enumerate}
@@ -173,11 +196,12 @@ Al diseñar la pantalla de detalle, la agente de UX (Sally) propuso ubicar una t
 
 \textbf{Rechazamos de plano esta propuesta}: poner el puntaje en la cabecera violaba directamente la decisión \texttt{DEC-03} y el requisito \texttt{RNF-08}, induciendo un sesgo de anclaje antes de que el liquidador pudiera mirar el documento.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\fbox{\parbox{0.95\textwidth}{\centering \small
-\textbf{Antes (Propuesta rechazada del agente):} Cabecera fija con ID del caso, SLA y tarjeta con puntaje global (38.5 pts en rojo) visible en los primeros 100 píxeles de pantalla.\\
-\textbf{Después (Corrección aprobada e implementada):} Cabecera superior muestra únicamente ID, causal y semáforo de SLA. El puntaje numérico se movió al Tercio Inferior (\texttt{\#panel-puntaje-confianza}), obligando al liquidador a revisar primero la boleta médica y el desglose de señales.}}
+\includegraphics[width=0.88\textwidth]{Figura1-Despues.png}\\[0.4em]
+\fbox{\parbox{0.92\textwidth}{\centering \small
+\textbf{Antes (Propuesta rechazada):} Cabecera fija con tarjeta de puntaje global (38.5 pts en rojo) visible en los primeros 100 píxeles.\\
+\textbf{Después (Aprobado e implementado en la captura):} Cabecera libre de puntajes. El score se trasladó al Tercio Inferior (\texttt{\#panel-puntaje-confianza}), obligando a revisar primero la boleta médica y las anomalías visuales.}}
 \caption{Contraste de corrección aplicada sobre el artefacto de diseño de interfaz.}
 \label{fig:antes-despues-ui}
 \end{figure}
@@ -191,7 +215,7 @@ Al diseñar la pantalla de detalle, la agente de UX (Sally) propuso ubicar una t
 \newpage
 
 % =============================================================================
-% 6.4 IMPLEMENTACIÓN (Extensión máxima: 1,5 planas)
+% 6.4 IMPLEMENTACIÓN DEL INCREMENTO (Extensión máxima: 1,5 planas)
 % =============================================================================
 \section{Implementación del Incremento}
 
@@ -200,7 +224,7 @@ Implementamos una arquitectura hexagonal desacoplada, separando la lógica matem
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{c4-contenedores-mira.png}
+\includegraphics[width=0.90\textwidth]{c4-contenedores-mira.png}
 \caption{Diagrama de Contenedores C4: Arquitectura desacoplada de los módulos F4 y F1 con persistencia dual, rastro forense y flujo pericial humano.}
 \label{fig:diagrama-c4}
 \end{figure}
@@ -208,53 +232,47 @@ Implementamos una arquitectura hexagonal desacoplada, separando la lógica matem
 \subsection{Modelo de Datos Efectivamente Implementado}
 El modelo de datos se implementó en \texttt{backend/app/domain/models.py} con esquemas Pydantic v2, asegurando validación estricta de tipos y rangos en tiempo de ejecución:
 \begin{itemize}
-    \item \textbf{\texttt{CasoExpediente}:} Entidad principal que agrupa identificadores (\texttt{caso\_id}, \texttt{tenant\_id}), datos de \texttt{Asegurado}, \texttt{Prestador}, \texttt{Prestacion}, lista de \texttt{EvidenciaDocumental}, matriz de \texttt{SenalesAnaliticas}, objeto de control \texttt{InformacionSla}, \texttt{ResultadoF4}, \texttt{ResolucionHumana} y el sello criptográfico \texttt{hash\_auditoria\_sha256}.
-    \item \textbf{\texttt{SenalesAnaliticas}:} Modela los cuatro componentes evaluados (\texttt{autenticidad\_documental}, \texttt{consistencia\_datos}, \texttt{habilitacion\_prestador}, \texttt{consistencia\_identidad}) como instancias de \texttt{DetalleSenal}, registrando valor ($0-100$), umbral mínimo individual y si es crítica, junto a la alerta de fraude (\texttt{alerta\_fraude\_activa}).
-    \item \textbf{\texttt{ResultadoF4}:} Registra el puntaje ponderado ($S$), desglose de puntos por componente, decisión algorítmica (\texttt{EstadoCaso}), causal de derivación (\texttt{CausalDerivacion}) y explicación pericial.
-    \item \textbf{\texttt{ResolucionHumana}:} Captura la decisión del operador (\texttt{APROBAR}, \texttt{RECHAZAR}, \texttt{SOLICITAR\_ANTECEDENTES}), justificación obligatoria ($\ge 15$ caracteres), ID de usuario y la marca \texttt{discrepancia\_detectada} (\texttt{RF-19}).
+    \item \textbf{\texttt{CasoExpediente}:} Entidad principal que agrupa identificadores (\texttt{caso\_id}, \texttt{tenant\_id}), datos de asegurado, prestador y prestación, evidencias documentales, señales analíticas, SLA, resultado F4, resolución humana y sello SHA-256.
+    \item \textbf{\texttt{SenalesAnaliticas}:} Modela los 4 componentes evaluados (autenticidad, consistencia de datos, habilitación y consistencia de identidad), registrando valor ($0-100$), umbral mínimo y alerta de fraude activa.
+    \item \textbf{\texttt{ResultadoF4}:} Registra el puntaje ponderado ($S$), desglose de puntos por componente, decisión algorítmica (\texttt{EstadoCaso}), causal de derivación y explicación pericial.
+    \item \textbf{\texttt{ResolucionHumana}:} Captura la decisión del operador (\texttt{APROBAR}, \texttt{RECHAZAR}, \texttt{SOLICITAR\_ANTECEDENTES}), justificación obligatoria ($\ge 15$ caracteres) y la marca \texttt{discrepancia\_detectada} (\texttt{RF-19}).
 \end{itemize}
 
 \subsection{Capturas y Flujo Visual de la Interfaz Web F1}
+El flujo de la pantalla de detalle se estructura en tres niveles estrictos:
+1) \textbf{Tercio Superior:} ficha del caso y visor documental interactivo (zoom/arrastre) con recuadros rojos (\textit{bounding boxes}) sobre anomalías, sin mostrar puntajes; 
+2) \textbf{Tercio Medio:} barras de progreso de las cuatro señales analíticas y explicaciones de corte; 
+3) \textbf{Tercio Inferior:} revelación diferida del puntaje numérico, cartel de discrepancia (\texttt{RF-19}) y panel resolutivo con justificación obligatoria.
 
 \begin{center}
-\fbox{\parbox{0.92\textwidth}{\centering \small \textbf{(Espacio para Imagen: Captura de la Bandeja de Casos F1 con Semaforización de SLA)}\\[0.3em]
-\textit{Muestra la vista \texttt{/bandeja} con KPIs operacionales, tabla de casos derivados clasificados por urgencia de SLA (verde, amarillo y rojo parpadeante), filtros de causal y botonera rápida de casos canónicos.}}}
+\fbox{\parbox{0.90\textwidth}{\centering \small \textbf{(Espacio para Imagen: Captura de la Bandeja de Casos F1 con Semaforización de SLA)}\\[0.2em]
+\textit{Muestra la vista /bandeja con KPIs, tabla de casos derivados por SLA (verde, amarillo y rojo), filtros y buscador en vivo.}}}
 \end{center}
 
-\vspace{0.5em}
-
 \begin{center}
-\fbox{\parbox{0.92\textwidth}{\centering \small \textbf{(Espacio para Imagen: Captura del Detalle de Expediente — Embudo de Tres Tercios y Visor Bounding Boxes)}\\[0.3em]
-\textit{Muestra el Tercio Superior con ficha y visor documental con recuadro rojo sobre el folio adulterado sin puntaje, Tercio Medio con barras de señales y Tercio Inferior con revelación diferida y panel resolutivo.}}}
+\fbox{\parbox{0.90\textwidth}{\centering \small \textbf{(Espacio para Imagen: Captura del Detalle de Expediente — Embudo de Tres Tercios y Visor Bounding Boxes)}\\[0.2em]
+\textit{Muestra el Tercio Superior con visor documental, Tercio Medio con señales y Tercio Inferior con revelación diferida.}}}
 \end{center}
 
 \subsection{Estado Real del Incremento y Declaración de Brechas}
-Declaramos con honestidad técnica el estado funcional del sistema:
 \begin{itemize}
-    \item \textbf{Lo que funciona al 100\%:} 
-    \begin{itemize}
-        \item Motor determinista F4 completo: cálculo lineal ponderado en $<1$ ms, corte por mínimos individuales (\texttt{RF-11}), cortocircuito por fraude (\texttt{RF-12}), tolerancia a fallas de servicio (\texttt{RF-13}) y prohibición de rechazo automático (\texttt{DEC-07}).
-        \item Bandeja F1 interactiva: orden por urgencia de SLA con semáforos, buscador dinámico y filtros reactivos por causal.
-        \item Pantalla de detalle en tres tercios: visor documental interactivo (zoom y arrastre) con recuadros rojos sobre anomalías y tooltips explicativos.
-        \item Panel resolutivo con detección de discrepancias (\texttt{RF-19}): validación de justificación ($\ge 15$ caracteres) y registro forense encadenado con hashes SHA-256.
-        \item Persistencia dual (JSON local atómico y Firestore con respaldo automático) y middlewares de rate limiting (Leaky Bucket con 0\% descartes) y multitenancy (bloqueo HTTP 403).
-    \end{itemize}
-    \item \textbf{Lo que funciona parcialmente:} La bandeja en modo local se actualiza mediante recarga automática tras emitir un dictamen o por sondeo suave, en vez de usar WebSockets en tiempo real.
-    \item \textbf{Lo que quedó fuera del alcance:} Modelos reales de visión y OCR para procesar boletas desde cero (simulados con datos sintéticos según la Regla 4.3); autenticación federada con LDAP corporativo (postergada para la Entrega 4 según \texttt{DEC-08}).
+    \item \textbf{Lo que funciona al 100\%:} Motor determinista F4 completo (sub-1ms), corte por mínimos individuales (\texttt{RF-11}), cortocircuito por fraude (\texttt{RF-12}), tolerancia a fallas de servicio (\texttt{RF-13}) y prohibición de rechazo automático (\texttt{DEC-07}); Bandeja F1 interactiva con SLA, buscador y filtros; Detalle en tres tercios con visor interactivo y bounding boxes; Panel resolutivo con captura de discrepancias (\texttt{RF-19}) y sello SHA-256; Persistencia dual (JSON local y Firestore cloud) y rate limiting Leaky Bucket con 0\% descartes.
+    \item \textbf{Lo que funciona parcialmente:} La bandeja en modo local se actualiza mediante recarga automática tras emitir dictamen o por sondeo suave, en vez de WebSockets en tiempo real.
+    \item \textbf{Lo que quedó fuera del alcance:} Modelos reales de visión y OCR para procesar boletas desde cero (simulados con datos sintéticos según Regla 4.3); autenticación federada con LDAP corporativo (postergada para la Entrega 4 según \texttt{DEC-08}).
 \end{itemize}
 
 \subsection{Estimación de Autoría del Código en el Repositorio}
 A partir del historial de commits y cambios en Git:
 \begin{itemize}
-    \item \textbf{Generado por el agente sin cambios ($\sim 60\%$):} Modelos base de Pydantic, estilos iniciales en Tailwind CSS y contratos CRUD estándar del API.
-    \item \textbf{Corregido y refactorizado por el equipo ($\sim 30\%$):} Reescritura del pipeline de reglas de F4 para forzar el corte por fraude y mínimos individuales; reestructuración visual del detalle para erradicar el puntaje de la cabecera; cola de espera del middleware Leaky Bucket.
-    \item \textbf{Escrito 100\% por el equipo ($\sim 10\%$):} Generador de boletas SVG en \texttt{seed\_dataset.py}; suite completa de verificación de los 10 RNF (\texttt{test\_rnf\_validation.py}) y script E2E en JSDOM.
+    \item \textbf{Generado por el agente sin cambios ($\sim 60\%$):} Modelos base Pydantic, estilos iniciales Tailwind CSS y contratos CRUD estándar del API.
+    \item \textbf{Corregido y refactorizado por el equipo ($\sim 30\%$):} Reescritura del pipeline de reglas F4 (fraude y mínimos individuales), reestructuración visual del detalle para erradicar el puntaje de cabecera y cola elástica de Leaky Bucket.
+    \item \textbf{Escrito 100\% por el equipo ($\sim 10\%$):} Generador de boletas SVG en \texttt{seed\_dataset.py}, suite de verificación de los 10 RNF (\texttt{test\_rnf\_validation.py}) y script E2E en JSDOM.
 \end{itemize}
 
 \newpage
 
 % =============================================================================
-% 6.5 PRUEBAS Y VERIFICACIÓN (Extensión máxima: 1,5 planas)
+% 6.5 PRUEBAS Y VERIFICACIÓN DEL INCREMENTO (Extensión máxima: 1,5 planas)
 % =============================================================================
 \section{Pruebas y Verificación del Incremento}
 
@@ -264,28 +282,26 @@ Diseñamos las pruebas basándonos directamente en los requisitos y pruebas (PF 
 Ejecutamos \textbf{24 pruebas automatizadas} en el backend con una tasa de éxito del \textbf{100\%} (\texttt{24 passed in 0.49s}):
 \begin{itemize}
     \item \textbf{Cálculo Determinista y Reglas de Corte F4 (\texttt{test\_f4\_engine.py} — 8 tests):}  
-    Verifica el cálculo ponderado exacto ($S = 95.7$ pts en caso nominal), control de invariantes numéricos ($0-100$), tiempo de cálculo sub-10ms (0.08 ms observado), corte por mínimo insatisfecho (\texttt{CP-RF-11-01}), cortocircuito por fraude (\texttt{CP-RF-12-01}), tolerancia a módulos nulos (\texttt{CP-RF-13-01}) y derivación por bajo puntaje sin rechazo automático (\texttt{CP-RF-14-01}).
+    Verifica cálculo ponderado nominal ($S = 95.7$ pts), invariantes numéricos ($0-100$), tiempo de cálculo sub-10ms (0.08 ms observado), corte por mínimo insatisfecho (\texttt{CP-RF-11-01}), cortocircuito por fraude (\texttt{CP-RF-12-01}), tolerancia a módulos nulos (\texttt{CP-RF-13-01}) y derivación por bajo puntaje sin rechazo automático (\texttt{CP-RF-14-01}).
     \item \textbf{Servicios REST e Integración (\texttt{test\_api\_endpoints.py} — 6 tests):}  
-    Comprueba endpoints de salud, orden cronológico de SLA en \texttt{GET /api/v1/casos}, entrega de coordenadas de \textit{bounding boxes}, rechazo HTTP 422 si la justificación tiene menos de 15 caracteres, estampación de \texttt{discrepancia\_detectada} en \texttt{POST /api/v1/casos/\{id\}/dictamen}, conciliación contable de validaciones y bloqueo HTTP 403 ante accesos cruzados entre organizaciones.
+    Comprueba salud, orden SLA en \texttt{GET /api/v1/casos}, entrega de coordenadas de bounding boxes, rechazo HTTP 422 si la justificación tiene menos de 15 caracteres, estampación de \texttt{discrepancia\_detectada} en \texttt{POST /api/v1/casos/\{id\}/dictamen}, conciliación contable de validaciones y bloqueo HTTP 403 multitenant.
 \end{itemize}
 
 \subsection{Prueba de Extremo a Extremo (E2E) de la Bandeja F1}
-La prueba automatizada E2E (\texttt{e2e\_bandeja\_test.mjs}) simula la interacción de un usuario en el navegador recorriendo el flujo completo:
-\begin{enumerate}
-    \item Abre la bandeja en \texttt{/bandeja} y valida los contadores KPI y los 8 casos canónicos.
-    \item Aplica filtros por causal y verifica que la búsqueda por texto responda en vivo.
-    \item Abre el caso \texttt{CASO-2026-003} (caso de bajo puntaje) y \textbf{comprueba que el puntaje numérico no aparece en el tercio superior} (\texttt{RNF-08}), verificando el visor SVG y el recuadro rojo de anomalía.
-    \item Avanza al tercio medio y valida las cuatro barras de señales analíticas.
-    \item Llega al tercio inferior donde se revela el puntaje diferido, selecciona \texttt{APROBAR}, verifica que se activa el cartel de advertencia de discrepancia (\texttt{RF-19}), comprueba que el botón se bloquea hasta escribir 15 caracteres de fundamento y envía la resolución, validando el modal de confirmación con el hash SHA-256.
-\end{enumerate}
+La prueba automatizada E2E (\texttt{e2e\_bandeja\_test.mjs}) simula la interacción de un usuario recorriendo el flujo:
+1) Carga la bandeja en \texttt{/bandeja} y valida KPIs y los 8 casos canónicos; 
+2) Aplica filtros por causal y búsqueda en vivo; 
+3) Abre el caso \texttt{CASO-2026-003} y \textbf{comprueba que el puntaje numérico no aparece en el tercio superior} (\texttt{RNF-08}), verificando el visor SVG y el recuadro rojo de anomalía; 
+4) Avanza al tercio medio y valida las cuatro barras de señales analíticas; 
+5) Llega al tercio inferior, revela el puntaje diferido, selecciona \texttt{APROBAR}, verifica el cartel de advertencia de discrepancia (\texttt{RF-19}), comprueba el bloqueo por justificación ($<15$ chars) y envía la resolución, validando el modal con hash SHA-256.
 
 \subsection{Pruebas Extra-Funcionales con Umbrales Medibles (Los 10 RNF de E1)}
-En \texttt{backend/tests/test\_rnf\_validation.py} programamos aserciones cuantitativas para los 10 RNF heredados de la Entrega 1:
+En \texttt{backend/tests/test\_rnf\_validation.py} programamos aserciones cuantitativas para los 10 RNF heredados de E1:
 
 \begin{table}[h]
 \centering
 \small
-\begin{tabularx}{\textwidth}{l p{4.2cm} X c}
+\begin{tabularx}{\textwidth}{l P{3.8cm} Y c}
 \toprule
 \textbf{ID RNF} & \textbf{Atributo de Calidad} & \textbf{Métrica Extra-Funcional Medible y Aserción} & \textbf{Resultado QA} \\
 \midrule
@@ -310,11 +326,11 @@ Invitamos a un integrante de otro equipo de desarrollo para interactuar con la b
 \begin{itemize}
     \item \textbf{Tarea Asignada:} Entrar a la bandeja, identificar el caso sospechoso de fraude (\texttt{CASO-2026-005}), revisar el motivo de alerta en el visor de documentos y rechazar el siniestro indicando la causal.
     \item \textbf{Resultado y Tiempo:} Completó la tarea con éxito en \textbf{1 minuto con 45 segundos}.
-    \item \textbf{Dificultades y Comportamiento Observado:} El usuario comentó que instintivamente buscó la nota del caso arriba; al no verla, centró su mirada en la boleta médica, encontrando de inmediato el recuadro rojo sobre el folio adulterado. Este comportamiento demostró de forma práctica que el Embudo de Tres Tercios cumple su propósito de evitar el anclaje.
+    \item \textbf{Comportamiento Observado:} El usuario buscó instintivamente la nota en la cabecera; al no verla, centró su mirada en la boleta médica, encontrando de inmediato el recuadro rojo sobre el folio adulterado. Este comportamiento demostró en la práctica que el Embudo de Tres Tercios cumple su propósito de evitar el anclaje inicial.
 \end{itemize}
 
 \subsection{Sesión de Aceptación con el Representante del Cliente}
-En la revisión con el Representante del Cliente (Thean Orlandi), se evaluaron los criterios de entrega:
+En la revisión formal con el Representante del Cliente (Thean Orlandi), se evaluaron los criterios de entrega:
 \begin{itemize}
     \item \textbf{Criterios Aceptados Plenamente:} La eliminación total del rechazo automático (\texttt{DEC-07}); la inspección documental previa al puntaje (\texttt{DEC-03}); el semáforo regresivo de SLA de 24 horas (\texttt{DEC-05}); el hash SHA-256 de auditoría (\texttt{DEC-10}); y la paridad contable en validaciones cobrables (\texttt{DEC-02}).
     \item \textbf{Criterios Condicionados:} La calibración definitiva de los pesos paramétricos ($35/25/20/20$) y de los umbrales ($90/60$) quedó formalmente condicionada a las mediciones que se obtengan durante la marcha blanca con usuarios reales.
@@ -336,12 +352,12 @@ Comparamos lo analizado en la Entrega 1 con lo efectivamente especificado e impl
 \begin{table}[h]
 \centering
 \scriptsize
-\begin{tabularx}{\textwidth}{l p{2.8cm} c p{4.2cm} X}
+\begin{tabularx}{\textwidth}{l P{2.6cm} c P{4.2cm} Y}
 \toprule
 \textbf{ID Req.} & \textbf{Requisito E1} & \textbf{Tipo} & \textbf{Naturaleza y Motivo del Cambio} & \textbf{Decisión / Justificación} \\
 \midrule
 \textbf{RF-14} & Prohibición de rechazo automático & Modificado & En E1 se permitía rechazar automáticamente si score $<60$. Se modificó para prohibir todo rechazo algorítmico, derivando a revisión humana como \texttt{BAJO\_PUNTAJE}. & \texttt{DEC-07} / Cumplimiento de la exigencia legal de intervención humana en decisiones desfavorables. \\
-\textbf{RF-11} & Umbrales mínimos por señal & Modificado & En E1 estaba planteado como concepto pero sin verificación (\texttt{H-12}). Se implementó como regla dura previa que bloquea la aprobación si una señal crítica falla. & Cierra definitivamente el hallazgo \texttt{H-12} (evita que un buen promedio oculte anomalías graves). \\
+\textbf{RF-11} & Umbrales mínimos por señal & Modificado & En E1 estaba planteado conceptualmente pero sin verificación (\texttt{H-12}). Se implementó como regla dura previa que bloquea la aprobación si una señal crítica falla. & Cierra definitivamente el hallazgo \texttt{H-12} (evita que un buen promedio oculte anomalías graves). \\
 \textbf{RNF-08} & Mitigación sesgo de anclaje & Modificado & En E1 se mostraba el score en la cabecera. Se modificó estructurando el Embudo de Tres Tercios, ocultando el número en el primer viewport. & \texttt{DEC-03} / \texttt{H-09} / Protege la independencia de juicio pericial del liquidador. \\
 \textbf{RF-55} & Límite de llamadas API & Modificado & En E1 se proponía descartar llamadas con HTTP 429 sobre 100 rpm. Se modificó a un encolamiento elástico Leaky Bucket con respuesta HTTP 202. & \texttt{DEC-06} / Protege la carga batch histórica del cliente sin botar transacciones. \\
 \textbf{RF-45} & Conservación de evidencias & Modificado & En E1 Producto proponía retención de 90 días. Se fijó una política estricta de custodia inalterable de 5 años con bloqueo de borrado. & \texttt{DEC-01} / Obligación regulatoria de la Superintendencia de Salud para juicios. \\
@@ -357,7 +373,7 @@ Comparamos lo analizado en la Entrega 1 con lo efectivamente especificado e impl
 \begin{table}[h]
 \centering
 \scriptsize
-\begin{tabularx}{\textwidth}{c p{3.2cm} c c p{4.0cm} c}
+\begin{tabularx}{\textwidth}{c P{3.2cm} c c P{3.8cm} c}
 \toprule
 \textbf{HU E1} & \textbf{Título / Alcance Original E1} & \textbf{Req. E1} & \textbf{HU E2} & \textbf{Módulo y Archivo Implementado} & \textbf{Test Verificador} \\
 \midrule
@@ -394,13 +410,13 @@ Comparamos lo analizado en la Entrega 1 con lo efectivamente especificado e impl
 \end{table}
 
 \subsection{Tres Indicadores Cuantitativos Obligatorios}
-\begin{enumerate}
+\begin{enumerate}[leftmargin=*]
     \item \textbf{Indicador 1 — Cobertura de Requisitos Must del Alcance:}
-    $$\text{Cobertura Must} = \frac{16\text{ Requisitos Must de F4 y F1 Implementados y Probados}}{16\text{ Requisitos Must del Alcance Acotado}} = \mathbf{100.0\%}$$
+    $\text{Cobertura Must} = \frac{16\text{ Must de F4 y F1 Probados}}{16\text{ Must del Alcance Acotado}} = \mathbf{100.0\%}$
     \item \textbf{Indicador 2 — Tasa de Fidelidad a las Decisiones de la Bitácora:}
-    $$\text{Fidelidad a Bitácora} = \frac{9\text{ Decisiones Respetadas e Integradas (\texttt{DEC-01} a \texttt{DEC-09})}}{9\text{ Decisiones Vinculantes del Cliente}} = \mathbf{100.0\%}$$
+    $\text{Fidelidad a Bitácora} = \frac{9\text{ Decisiones Integradas (\texttt{DEC-01..09})}}{9\text{ Decisiones Vinculantes del Cliente}} = \mathbf{100.0\%}$
     \item \textbf{Indicador 3 — Nivel de Resolución de Hallazgos Abiertos de E1:}
-    $$\text{Resolución de Hallazgos} = \frac{5\text{ Hallazgos Críticos Cerrados con Código (\texttt{H-12}, \texttt{H-03}, \texttt{H-04}, \texttt{H-09}, \texttt{H-14})}}{5\text{ Hallazgos Directamente Vinculados a F4 y F1}} = \mathbf{100.0\%}$$
+    $\text{Resolución de Hallazgos} = \frac{5\text{ Hallazgos Cerrados con Código (\texttt{H-12, 03, 04, 09, 14})}}{5\text{ Hallazgos Vinculados a F4 y F1}} = \mathbf{100.0\%}$
 \end{enumerate}
 
 \subsection{Respuestas a las Preguntas Guía}
@@ -454,7 +470,7 @@ Comparamos lo analizado en la Entrega 1 con lo efectivamente especificado e impl
 \newpage
 
 % =============================================================================
-% 6.7 DISCUSIÓN (Extensión máxima: 1 plana)
+% 6.7 DISCUSIÓN Y REFLEXIÓN CRÍTICA (Extensión máxima: 1 plana)
 % =============================================================================
 \section{Discusión y Reflexión Crítica}
 
@@ -472,8 +488,8 @@ El ejemplo más claro ocurrió en la interfaz: la agente de diseño colocó el p
 
 \subsection{Pérdidas en el Traspaso y Comparativa con Otros Métodos}
 \begin{itemize}
-    \item \textbf{¿Qué se perdió entre la especificación y el código?} Se simplificó la reactividad en tiempo real: mientras que el diseño aspiraba a WebSockets bidireccionales, la necesidad de asegurar un arranque autónomo sin internet ni claves cloud ($<5$ min, C4) nos llevó a usar sondeo suave y recarga en acciones clave. La funcionalidad pericial se mantuvo intacta, priorizando la facilidad de uso y la estabilidad local.
-    \item \textbf{Comparativa con Prompting Directo:} BMAD demostró ser muy superior al prompting libre de la Entrega 1 en control y precisión. En E1, pedir código directamente generaba errores sutiles (como reintroducir el rechazo automático o ignorar mínimos individuales). Con BMAD, la presencia de documentos intermedios aprobados redujo las alucinaciones en el código a menos del 5\%.
+    \item \textbf{¿Qué se perdió entre la especificación y el código?} Se simplificó la reactividad en tiempo real: mientras que el diseño aspiraba a WebSockets bidireccionales, la necesidad de asegurar un arranque autónomo sin internet ni claves cloud ($<5$ min, C4) nos llevó a usar sondeo suave y recarga en acciones clave. La funcionalidad pericial se mantuvo intacta, priorizando la estabilidad local.
+    \item \textbf{Comparativa con Prompting Directo:} BMAD demostró ser muy superior al prompting libre de la Entrega 1 en control y precisión. En E1, pedir código directamente generaba errores sutiles (como reintroducir el rechazo automático o ignorar mínimos individuales). Con BMAD, los documentos intermedios aprobados redujeron las alucinaciones en el código a menos del 5\%.
     \item \textbf{¿Qué habríamos encontrado con un método puramente libre o cascada tradicional?} Un chat libre habría producido un prototipo vistoso pero inviable legalmente (con rechazos automáticos y puntaje en cabecera). Por otra parte, una cascada tradicional habría consumido semanas en documentos estáticos sin llegar a validar el código con 24 pruebas automatizadas en el mismo ciclo.
 \end{itemize}
 
