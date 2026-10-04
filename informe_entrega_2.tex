@@ -17,6 +17,7 @@
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage{caption}
+\usepackage{graphicx}
 
 % Configuración de colores sobrios y profesionales
 \definecolor{dprimeblue}{RGB}{15, 23, 42}
@@ -197,10 +198,12 @@ Al diseñar la pantalla de detalle, la agente de UX (Sally) propuso ubicar una t
 \subsection{Arquitectura Técnica y Contenedores C4}
 Implementamos una arquitectura hexagonal desacoplada, separando la lógica matemática de F4 de los servicios HTTP y de los mecanismos de almacenamiento.
 
-\begin{center}
-\fbox{\parbox{0.92\textwidth}{\centering \small \textbf{(Espacio para Imagen: Diagrama de Contenedores C4 de la Arquitectura F4 y F1)}\\[0.3em]
-\textit{Ilustra la interacción entre el navegador SPA (Vite/Tailwind), el API Gateway FastAPI, el motor de dominio puro F4, los repositorios duales JSON/Firestore y el registro inmutable de auditoría SHA-256.}}}
-\end{center}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{c4-contenedores-mira.png}
+\caption{Diagrama de Contenedores C4: Arquitectura desacoplada de los módulos F4 y F1 con persistencia dual, rastro forense y flujo pericial humano.}
+\label{fig:diagrama-c4}
+\end{figure}
 
 \subsection{Modelo de Datos Efectivamente Implementado}
 El modelo de datos se implementó en \texttt{backend/app/domain/models.py} con esquemas Pydantic v2, asegurando validación estricta de tipos y rangos en tiempo de ejecución:
